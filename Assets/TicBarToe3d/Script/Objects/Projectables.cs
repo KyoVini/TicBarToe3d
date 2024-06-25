@@ -21,7 +21,14 @@ namespace TicBarToe3d {
 
             rb.isKinematic = true;
             transform.SetParent(collision.transform);
-            Debug.Log(collision.transform.name);
+            Invoke(nameof(ResetCam), 2.0f);
+            //use a callback and in the manager reset the cam resetCam
+        }
+        private void ResetCam()
+        {
+            //change to the manager
+           
+            transform.Find("PlayerView").GetComponent<CamThrow>().CamCameBack();
         }
     }
 }

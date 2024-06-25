@@ -7,6 +7,7 @@ namespace TicBarToe3d
     public class ThrowObject : MonoBehaviour
     {
         private Transform cam;
+        private CamThrow camthrow;
         private Transform attackPoint;
         private GameObject objecttoThrow;
 
@@ -27,10 +28,11 @@ namespace TicBarToe3d
         {
             readytoThow = true;
             cam = gameObject.transform.Find("PlayerView").GetComponent<Camera>().transform;
+            camthrow = gameObject.transform.Find("PlayerView").GetComponent<CamThrow>();
             attackPoint = gameObject.transform.Find("ThrowPoint").transform;
             objecttoThrow = Resources.Load<GameObject>("Prefabs/Dart");// get later
             
-            totalThrows = 5;
+            totalThrows = 100;
             throwCooldown = 0.1f;
             throwForce = 50;
             throwUpwardForce = 0;
@@ -60,13 +62,14 @@ namespace TicBarToe3d
             projectileRb.AddForce(forcetoAdd, ForceMode.Impulse);
 
             totalThrows--;
-
-            Invoke(nameof(ResetThrow), throwCooldown);
+            camthrow.ChangeCam(cam.parent.gameObject, projectile);
         }
-        private void ResetThrow()
+        public void ResetThrow()
         {
             readytoThow = true;
+           
         }
+
     }
 }
     

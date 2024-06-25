@@ -12,12 +12,14 @@ namespace TicBarToe3d
         private Transform playerbody;
         private float xRotation;
 
-        private bool startlooking = false;
+        public bool startlooking;
+        public bool Startlooking { set { startlooking = value; } get { return startlooking; } }
         void Start()
         {
             playerbody = transform.parent.gameObject.transform;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            startlooking = false;
             Invoke("Looking", 1.0f);
         }
 
