@@ -12,7 +12,7 @@ namespace TicBarToe3d
         public void ChangeCam(GameObject _player, GameObject _projetil)
         {
             playergobj = _player;
-            resetposition = playergobj.transform.position;
+            resetposition = transform.position;
             projetil = _projetil;
             transform.SetParent(projetil.transform);
             transform.GetComponent<MouseLook>().Startlooking = false;
