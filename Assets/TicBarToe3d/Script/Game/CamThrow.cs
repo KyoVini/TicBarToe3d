@@ -6,12 +6,11 @@ namespace TicBarToe3d
 {
     public class CamThrow : MonoBehaviour
     {
-        private GameObject playergobj;
+        
         private Vector3 resetposition;
         private GameObject projetil;
-        public void ChangeCam(GameObject _player, GameObject _projetil)
+        public void ChangeCam(GameObject _projetil)
         {
-            playergobj = _player;
             resetposition = transform.position;
             projetil = _projetil;
             transform.SetParent(projetil.transform);
@@ -21,14 +20,17 @@ namespace TicBarToe3d
         }
         public void CamCameBack()
         {
-            transform.SetParent(playergobj.transform);
+            
+            transform.SetParent(PlayerManager.Instance.gameObject.transform);
             ResetPosition();
         }
         public void ResetPosition()
         {
             transform.position = resetposition;
-            transform.GetComponent<MouseLook>().Looking(true);
-            playergobj.transform.GetComponent<ThrowObject>().ResetThrow();
+        }
+        public void Looking(bool _looking)
+        {
+            transform.GetComponent<MouseLook>().Looking(_looking);
         }
     }
 }

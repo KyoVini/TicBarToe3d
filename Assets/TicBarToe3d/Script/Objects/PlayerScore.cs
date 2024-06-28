@@ -43,7 +43,8 @@ namespace TicBarToe3d
         }
         private void Selected(GameObject player)
         {
-            player.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            PlayerSO currentplayer = PlayerManager.Instance.GetCurrentPlayer(GameDartManager.Instance.currentplayer);
+            player.GetComponent<Image>().color = currentplayer.color;
         }
         private void NotSelected(GameObject player)
         {

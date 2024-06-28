@@ -11,7 +11,6 @@ namespace TicBarToe3d
             bool isdraw=true;
             for(int i = 0;i< squares.Length; i++)
             {
-                Debug.Log(squares[i]);
                 if(squares[i] == null)
                 {
                     isdraw =false;

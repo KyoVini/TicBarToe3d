@@ -20,7 +20,9 @@ namespace TicBarToe3d {
                 targetHit = true;
 
             rb.isKinematic = true;
-            transform.SetParent(collision.transform);
+            //transform.SetParent(collision.transform);
+            Transform newparent = GameDartManager.Instance.transform.Find("ProjectablesClones");
+            transform.SetParent(newparent);
             FillBoard.Instance.MarkBoard(collision.transform.gameObject);
         }
 

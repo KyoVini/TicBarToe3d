@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,8 +24,9 @@ namespace TicBarToe3d
             }
             squareshitted = new Square[totalindex];
         }
-        public void AddtoBoard(string _name,string player)
+        public void AddtoBoard(string _name)
         {
+            string player = GameDartManager.Instance.currentplayer;
             for (int i = 0; i< boardname.Length; i++)
             {
                 if(boardname[i] == _name)
@@ -35,6 +37,10 @@ namespace TicBarToe3d
                     squareshitted[i] = square;
                 }
             }
+            CheckHit();
+        }
+        public void CheckHit()
+        {
             GameDartManager.Instance.HittedBoard(squareshitted);
         }
         public bool SquareIsOcuppied(string namesquare)
@@ -49,7 +55,17 @@ namespace TicBarToe3d
             }
             return false;
         }
-
+        public void RestartBoard()
+        {
+            Array.Clear(squareshitted,0, squareshitted.Length);
+            int totalindex = transform.childCount;
+            squareshitted = new Square[totalindex];
+            Color32 resetcolor = new Color32(255, 255, 255, 255);
+            for(int i=0; i< totalindex; i++)
+            {
+                FillBoard.Instance.PaintSquare(transform.GetChild(i).gameObject,resetcolor);
+            }
+        }
     }
 }
 

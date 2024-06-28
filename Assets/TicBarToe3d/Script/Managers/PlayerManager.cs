@@ -20,7 +20,7 @@ namespace TicBarToe3d {
         }
         public PlayerSO GetCurrentPlayer(string _name)
         {
-            if(_name == player1.name)
+            if (_name == player1.name)
             {
                 return player1;
             }
@@ -47,6 +47,7 @@ namespace TicBarToe3d {
         public void ReadytoPlay()
         {
             PlayerLook(true);
+            gameObject.transform.GetComponent<ThrowObject>().ResetThrow();
         } 
         public void ResetCam()
         {
@@ -54,6 +55,12 @@ namespace TicBarToe3d {
             camthrow.CamCameBack();
             camthrow.ResetPosition();
         }
+        public void Looking(bool _looking)
+        {
+            CamThrow camthrow = playerview.GetComponent<CamThrow>(); ;
+            camthrow.Looking(_looking);
+        }
+
     }
 }
 

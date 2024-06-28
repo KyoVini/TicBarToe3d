@@ -13,9 +13,13 @@ namespace TicBarToe3d
                 if (!Board.Instance.SquareIsOcuppied(objhitted.name))
                 {
                     Color32 newcolor = PlayerManager.Instance.GetCurrentPlayer(_currentPlayer).color;
-                    objhitted.transform.GetComponent<MeshRenderer>().material.color = newcolor;
+                    PaintSquare(objhitted, newcolor);
+                    Board.Instance.AddtoBoard(objhitted.name);
                 }
-                Board.Instance.AddtoBoard(objhitted.name,_currentPlayer);
+                else
+                {
+                    Board.Instance.CheckHit();
+                }
             }
         }
         
@@ -38,6 +42,10 @@ namespace TicBarToe3d
             {
                 return false;
             }
+        }
+        public void PaintSquare(GameObject obj, Color32 newcolor)
+        {
+            obj.transform.GetComponent<MeshRenderer>().material.color = newcolor;
         }
     }
 }

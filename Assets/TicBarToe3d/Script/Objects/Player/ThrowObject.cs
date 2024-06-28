@@ -48,6 +48,7 @@ namespace TicBarToe3d
         {
             readytoThow = false;
             GameObject projectile = Instantiate(objecttoThrow, attackPoint.position, cam.rotation);
+            projectile.transform.name = "dartclone";
             Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
             Vector3 forceDirection = cam.transform.forward;
             RaycastHit hit;
@@ -60,13 +61,12 @@ namespace TicBarToe3d
             projectileRb.AddForce(forcetoAdd, ForceMode.Impulse);
 
             totalThrows--;
-            camthrow.ChangeCam(cam.parent.gameObject, projectile);
+            camthrow.ChangeCam(projectile);
             GameDartManager.Instance.Shoot();
         }
         public void ResetThrow()
         {
             readytoThow = true;
-           
         }
 
     }

@@ -17,8 +17,6 @@ namespace TicBarToe3d
         void Start()
         {
             playerbody = transform.parent.gameObject.transform;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
             startlooking = false;
         }
 

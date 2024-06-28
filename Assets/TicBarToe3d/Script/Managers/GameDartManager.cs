@@ -23,12 +23,13 @@ namespace TicBarToe3d
             }
             PlayerManager.Instance.WaittoPlay();
             UIGameDartManager.Instance.WaittoPlay();
-            Invoke(nameof(RoundPlay), 3.0f);
+            Invoke(nameof(RoundPlay), 1.0f);
         }
         private void RoundPlay()
         {
             PlayerManager.Instance.ReadytoPlay();
             UIGameDartManager.Instance.ReadtoPlay();
+            PlayerManager.Instance.Looking(true);
         }
         public void Shoot()
         {
@@ -50,6 +51,7 @@ namespace TicBarToe3d
         public void EndRound()
         {
             PlayerManager.Instance.ResetCam();
+            
             if (currentplayer == PlayerManager.Instance.GetNamePlayer(1))
             {
                 currentplayer = PlayerManager.Instance.GetNamePlayer(2);
@@ -63,7 +65,24 @@ namespace TicBarToe3d
         }
         private void EndGame()
         {
-            Debug.Log("EndGame");
+            PlayerManager.Instance.ResetCam();
+            //Delete all projectables
+            Transform projectablesclones = transform.Find("ProjectablesClones");
+            int totalindex = projectablesclones.childCount;
+            for (int i = 0; i < totalindex; i++)
+            {
+                foreach (Transform child in projectablesclones)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+            UIGameDartManager.Instance.EndGame();
+        }
+        public void RestartGame()
+        {
+            Board.Instance.RestartBoard();
+            currentplayer = "";
+            RoundIntro();
         }
     }
 }
