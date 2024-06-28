@@ -21,8 +21,9 @@ namespace TicBarToe3d {
 
             rb.isKinematic = true;
             transform.SetParent(collision.transform);
-            Debug.Log(collision.transform.name);
+            FillBoard.Instance.MarkBoard(collision.transform.gameObject);
         }
+
     }
 }
 

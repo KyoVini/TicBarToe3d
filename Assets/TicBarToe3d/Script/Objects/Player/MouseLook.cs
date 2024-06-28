@@ -12,13 +12,14 @@ namespace TicBarToe3d
         private Transform playerbody;
         private float xRotation;
 
-        private bool startlooking = false;
+        public bool startlooking;
+        
         void Start()
         {
             playerbody = transform.parent.gameObject.transform;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            Invoke("Looking", 1.0f);
+            startlooking = false;
         }
 
         // Update is called once per frame
@@ -29,17 +30,18 @@ namespace TicBarToe3d
                 float mouseX = Input.GetAxis("Mouse X") * mousesensivityX * Time.deltaTime;
                 float mouseY = Input.GetAxis("Mouse Y") * mousesensivityY * Time.deltaTime;
                 xRotation -= mouseY;
-                xRotation = Mathf.Clamp(xRotation, -60, 60);
+                xRotation = Mathf.Clamp(xRotation, -60, 40);
                 transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+                
                 if (playerbody.name == "Player")
                 {
                     playerbody.Rotate(Vector3.up * mouseX);
                 }
             }
         }
-        private void Looking()
+        public void Looking(bool _looking)
         {
-            startlooking = true;
+            startlooking = _looking;
         }
     }
 }
