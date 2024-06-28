@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-namespace TicTacToe3D
+namespace TicBarToe3d
 {
     public static class WinCondition
     {

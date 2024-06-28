@@ -15,7 +15,7 @@ namespace TicBarToe3d
             resetposition = transform.position;
             projetil = _projetil;
             transform.SetParent(projetil.transform);
-            transform.GetComponent<MouseLook>().Startlooking = false;
+            transform.GetComponent<MouseLook>().Looking(false);
             Transform newposition = projetil.transform.Find("CamPositon").transform;
             transform.position = newposition.position;
         }
@@ -24,7 +24,7 @@ namespace TicBarToe3d
             //Here use a manager game to control the reset
             transform.SetParent(playergobj.transform);
             transform.position = resetposition;
-            transform.GetComponent<MouseLook>().Startlooking = true;
+            transform.GetComponent<MouseLook>().Looking(true);
             playergobj.transform.GetComponent<ThrowObject>().ResetThrow();
         }
     }

@@ -4,19 +4,27 @@ using UnityEngine;
 
 namespace TicBarToe3d
 {
-    public class Board : MonoBehaviour
+    public class Board : Singleton<Board>
     {
+        List<string> board;
+        
+        private void Start()
+        {
+            board = new List<string>();
+            int count = gameObject.transform.childCount;
+            for(int i= 0; i < count; i++)
+            {
+                board.Add("");
+            }
+        }
         // Start is called before the first frame update
-        void Start()
+        public void BoardStats(string _name)
         {
 
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        
+        
     }
 }
 

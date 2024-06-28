@@ -3,27 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace TicBarToe3d
 {
-    public class FillBoard : MonoBehaviour
+    public class FillBoard : Singleton<FillBoard>
     {
-        public static FillBoard instance;
-        private void Awake()
+        public void MarkBoard(GameObject objhitted)
         {
-            if (instance == null)
+            if (IsProjectableHitBoard(objhitted))
             {
-                instance = this;
+                string _currentPlayer = GameDartManager.Instance.currentplayer;
+                Color32 newcolor = PlayerManager.Instance.GetCurrentPlayer(_currentPlayer).color;
+                objhitted.transform.GetComponent<MeshRenderer>().material.color = newcolor;
+                GameDartManager.Instance.CheckRound();
+                Board.Instance.BoardStats(objhitted.name);
+            }
+            
+        }
+        private bool IsProjectableHitBoard(GameObject projectable)
+        {
+            GameObject _parent = projectable.transform.parent.gameObject;
+            if (_parent != null)
+            {
+                if (_parent == gameObject)
+                {
+                    return true;
+
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                Destroy(instance);
+                return false;
             }
-        }
-        public void MarkBoard(GameObject objhitted)
-        {
-            //verify if the object hitted is the board
-        }
-        private void IsProjectableHitBoard(GameObject projectable)
-        {
-
         }
     }
 }

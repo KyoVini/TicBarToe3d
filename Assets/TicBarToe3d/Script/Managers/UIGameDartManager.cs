@@ -1,38 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 namespace TicBarToe3d
 {
-    public class UIGameDartManager : MonoBehaviour
+    public class UIGameDartManager : Singleton<UIGameDartManager>
     {
-        public static UIGameDartManager instance;
-
         private GameObject aim;
         private GameObject hand;
+        private PlayerScore playerscore;
+        private GameObject messageround;
 
-        public void Awake()
-        {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Destroy(instance);
-            }
-        }
         void Start()
         {
-            aim = transform.Find("DartUI").gameObject;
+            aim = transform.Find("Hand").gameObject;
             hand = transform.Find("Aim").gameObject;
+            messageround = transform.Find("Alert").gameObject;
+            playerscore = transform.Find("PlayerScore").gameObject.GetComponent<PlayerScore>();
+            HideUI();
         }
-        public void ShowUI(bool _show)
+        private void HideUI()
         {
-            aim.SetActive(_show);
-            hand.SetActive(_show);
+            aim.SetActive(false);
+            hand.SetActive(false);
+            messageround.SetActive(false);
+            playerscore.ChangeStats("hide");
         }
-
+        public void WaittoPlay()
+        {
+            aim.SetActive(false);
+            hand.SetActive(false);
+            messageround.SetActive(true); 
+            playerscore.ChangeStats(GameDartManager.Instance.currentplayer);
+        }
+        public void ReadtoPlay()
+        {
+            aim.SetActive(true);
+            hand.SetActive(true);
+            messageround.SetActive(false);
+        }
     }
 }
 

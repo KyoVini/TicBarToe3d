@@ -13,7 +13,6 @@ namespace TicBarToe3d
 
         
         private int totalThrows;
-        private float throwCooldown;
 
         [Header("Throwing")]
         [SerializeField]
@@ -33,7 +32,6 @@ namespace TicBarToe3d
             objecttoThrow = Resources.Load<GameObject>("Prefabs/Dart");// get later
             
             totalThrows = 100;
-            throwCooldown = 0.1f;
             throwForce = 50;
             throwUpwardForce = 0;
         }

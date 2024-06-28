@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: {r: 0.2216981, g: 1, b: 0.477405, a: 0}
   tag: X
-  name: Player1
+  name: Player 1

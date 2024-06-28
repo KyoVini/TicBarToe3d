@@ -2,34 +2,52 @@ using UnityEngine;
 
 namespace TicBarToe3d
 {
-    public partial class GameDartManager : MonoBehaviour
+    public class GameDartManager : Singleton<GameDartManager>
     {
-        public static GameDartManager instance;
-
-        private PlayerSO player1;
-        private PlayerSO player2;
-        private string currentplayer;
-
-        public void Awake()
+        public string currentplayer;
+        public void Start()
         {
-            if (instance == null)
+            IntroGame();
+        }
+        private void IntroGame()
+        {
+            Invoke(nameof(RoundIntro), 0.1f);
+            //cam fly around the scene and get the player vision
+        }
+        private void RoundIntro()
+        {
+            currentplayer = PlayerManager.Instance.GetNamePlayer(1);
+            PlayerManager.Instance.WaittoPlay();
+            UIGameDartManager.Instance.WaittoPlay();
+            Invoke(nameof(RoundPlay), 3.0f);
+        }
+        private void RoundPlay()
+        {
+            PlayerManager.Instance.ReadytoPlay();
+            UIGameDartManager.Instance.ReadtoPlay();
+        }
+        public void EndRound()
+        {
+
+        }
+        public void CheckRound()
+        {
+
+            //WinCondition.Condition();
+            //change player
+            if (currentplayer == PlayerManager.Instance.GetNamePlayer(1))
             {
-                instance = this;
+                currentplayer = PlayerManager.Instance.GetNamePlayer(2);
             }
             else
             {
-                Destroy(instance);
+                currentplayer = PlayerManager.Instance.GetNamePlayer(1);
             }
         }
-        public void Start()
+        private void EndGame()
         {
-            player1 = Resources.Load<PlayerSO>("Configs/Player1");
-            player2 = Resources.Load<PlayerSO>("Configs/Player2");
-            currentplayer = player1.name;
             
         }
-        
-
     }
 }
 
