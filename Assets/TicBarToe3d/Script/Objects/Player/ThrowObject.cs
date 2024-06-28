@@ -61,6 +61,7 @@ namespace TicBarToe3d
 
             totalThrows--;
             camthrow.ChangeCam(cam.parent.gameObject, projectile);
+            GameDartManager.Instance.Shoot();
         }
         public void ResetThrow()
         {

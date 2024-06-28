@@ -50,7 +50,9 @@ namespace TicBarToe3d {
         } 
         public void ResetCam()
         {
-            transform.Find("PlayerView").GetComponent<CamThrow>().CamCameBack();
+            CamThrow camthrow = playerview.GetComponent<CamThrow>(); ;
+            camthrow.CamCameBack();
+            camthrow.ResetPosition();
         }
     }
 }

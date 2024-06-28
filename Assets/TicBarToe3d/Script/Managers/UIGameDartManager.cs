@@ -24,11 +24,17 @@ namespace TicBarToe3d
             messageround.SetActive(false);
             playerscore.ChangeStats("hide");
         }
+        public void Shoot()
+        {
+            hand.SetActive(false);
+            aim.SetActive(false);
+        }
         public void WaittoPlay()
         {
             aim.SetActive(false);
             hand.SetActive(false);
-            messageround.SetActive(true); 
+            messageround.SetActive(true);
+            messageround.GetComponent<TextMeshProUGUI>().text = GameDartManager.Instance.currentplayer;
             playerscore.ChangeStats(GameDartManager.Instance.currentplayer);
         }
         public void ReadtoPlay()

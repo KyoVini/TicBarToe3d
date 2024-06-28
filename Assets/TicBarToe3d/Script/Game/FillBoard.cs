@@ -10,13 +10,15 @@ namespace TicBarToe3d
             if (IsProjectableHitBoard(objhitted))
             {
                 string _currentPlayer = GameDartManager.Instance.currentplayer;
-                Color32 newcolor = PlayerManager.Instance.GetCurrentPlayer(_currentPlayer).color;
-                objhitted.transform.GetComponent<MeshRenderer>().material.color = newcolor;
-                GameDartManager.Instance.CheckRound();
-                Board.Instance.BoardStats(objhitted.name);
+                if (!Board.Instance.SquareIsOcuppied(objhitted.name))
+                {
+                    Color32 newcolor = PlayerManager.Instance.GetCurrentPlayer(_currentPlayer).color;
+                    objhitted.transform.GetComponent<MeshRenderer>().material.color = newcolor;
+                }
+                Board.Instance.AddtoBoard(objhitted.name,_currentPlayer);
             }
-            
         }
+        
         private bool IsProjectableHitBoard(GameObject projectable)
         {
             GameObject _parent = projectable.transform.parent.gameObject;

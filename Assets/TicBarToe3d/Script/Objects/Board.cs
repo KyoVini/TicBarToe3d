@@ -6,25 +6,50 @@ namespace TicBarToe3d
 {
     public class Board : Singleton<Board>
     {
-        List<string> board;
-        
-        private void Start()
+        private string[] boardname;
+        public class Square
         {
-            board = new List<string>();
-            int count = gameObject.transform.childCount;
-            for(int i= 0; i < count; i++)
+            public string name  { set ; get; }
+            public string player { set; get; }
+        }
+        private Square[] squareshitted;
+        public void Start()
+        {
+            int totalindex = transform.childCount;
+            boardname = new string[totalindex];
+            for (int i =0; i< totalindex; i++)
             {
-                board.Add("");
+                boardname[i]=transform.GetChild(i).transform.name;
             }
+            squareshitted = new Square[totalindex];
         }
-        // Start is called before the first frame update
-        public void BoardStats(string _name)
+        public void AddtoBoard(string _name,string player)
         {
-
+            for (int i = 0; i< boardname.Length; i++)
+            {
+                if(boardname[i] == _name)
+                {
+                    Square square = new Square();
+                    square.name = _name;
+                    square.player = player;
+                    squareshitted[i] = square;
+                }
+            }
+            GameDartManager.Instance.HittedBoard(squareshitted);
+        }
+        public bool SquareIsOcuppied(string namesquare)
+        {
+            for(int i =0;i< squareshitted.Length; i++)
+            {
+                if(squareshitted[i] != null )
+                    if(squareshitted[i].name == namesquare)
+                    {
+                        return true;
+                    }
+            }
+            return false;
         }
 
-        
-        
     }
 }
 

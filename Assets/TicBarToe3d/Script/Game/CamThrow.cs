@@ -21,8 +21,11 @@ namespace TicBarToe3d
         }
         public void CamCameBack()
         {
-            //Here use a manager game to control the reset
             transform.SetParent(playergobj.transform);
+            ResetPosition();
+        }
+        public void ResetPosition()
+        {
             transform.position = resetposition;
             transform.GetComponent<MouseLook>().Looking(true);
             playergobj.transform.GetComponent<ThrowObject>().ResetThrow();

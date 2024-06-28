@@ -16,7 +16,11 @@ namespace TicBarToe3d
         }
         private void RoundIntro()
         {
-            currentplayer = PlayerManager.Instance.GetNamePlayer(1);
+            Debug.Log(currentplayer);
+            if(currentplayer == null || currentplayer=="")
+            {
+                currentplayer = PlayerManager.Instance.GetNamePlayer(1);
+            }
             PlayerManager.Instance.WaittoPlay();
             UIGameDartManager.Instance.WaittoPlay();
             Invoke(nameof(RoundPlay), 3.0f);
@@ -26,15 +30,26 @@ namespace TicBarToe3d
             PlayerManager.Instance.ReadytoPlay();
             UIGameDartManager.Instance.ReadtoPlay();
         }
+        public void Shoot()
+        {
+            UIGameDartManager.Instance.Shoot();
+        }
+        public void HittedBoard(Board.Square[] hittedsqures)
+        {
+            bool endgame = WinCondition.Condition(hittedsqures, currentplayer);
+            bool draw = DrawCondition.Condition(hittedsqures);
+            if (!endgame && !draw)
+            {
+                Invoke(nameof(EndRound), 1.0f);
+            }
+            else
+            {
+                Invoke(nameof(EndGame), 1.0f);
+            }
+        }
         public void EndRound()
         {
-
-        }
-        public void CheckRound()
-        {
-
-            //WinCondition.Condition();
-            //change player
+            PlayerManager.Instance.ResetCam();
             if (currentplayer == PlayerManager.Instance.GetNamePlayer(1))
             {
                 currentplayer = PlayerManager.Instance.GetNamePlayer(2);
@@ -43,10 +58,12 @@ namespace TicBarToe3d
             {
                 currentplayer = PlayerManager.Instance.GetNamePlayer(1);
             }
+
+            RoundIntro();
         }
         private void EndGame()
         {
-            
+            Debug.Log("EndGame");
         }
     }
 }
