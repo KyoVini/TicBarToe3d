@@ -815,7 +815,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b6567ccf1bc9c4cb1049120469ba3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentplayer: 
 --- !u!1 &532695252
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,7 +1390,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f6ba765f3d1b184babc4685ec5e23e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startlooking: 0
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1774,6 +1772,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1429775538}
+  - component: {fileID: 1429775539}
   m_Layer: 0
   m_Name: ProjectablesClones
   m_TagString: Untagged
@@ -1796,6 +1795,18 @@ Transform:
   m_Father: {fileID: 529064828}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1429775539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429775537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3589f9b1781585f4a9c9c57f3a78015b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1572323559
 GameObject:
   m_ObjectHideFlags: 0

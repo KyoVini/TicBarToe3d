@@ -4,15 +4,15 @@ namespace TicBarToe3d {
     public class PlayerManager : Singleton <PlayerManager>, IGameFlow
     {
         private GameObject playerview;
-        public PlayerSO player1;
-        public PlayerSO player2;
+        private PlayerSO player1;
+        private PlayerSO player2;
         
         public void Start()
         {
-            
             playerview = transform.Find("PlayerView").gameObject;
             player1 = Resources.Load<PlayerSO>("Configs/Player1");
             player2 = Resources.Load<PlayerSO>("Configs/Player2");
+            Dao.currentplayer = GetNamePlayer(1);
         }
         private void OnEnable()
         {
@@ -62,13 +62,8 @@ namespace TicBarToe3d {
             camthrow.ResetPosition();
         }
         
-
         public void OnRoundIntro()
         {
-            if (Dao.currentplayer == null || Dao.currentplayer == "")
-            {
-                Dao.currentplayer = GetNamePlayer(1);
-            }
             PlayerLook(false);
         }
 

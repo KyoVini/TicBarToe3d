@@ -24,7 +24,6 @@ namespace TicBarToe3d
         }
         private void OnEnable()
         {
-            Debug.Log("Start UIGameDartManager");
             GameDartManager.Instance.GetGameStats().Attach(this);
         }
         private void OnDestroy()

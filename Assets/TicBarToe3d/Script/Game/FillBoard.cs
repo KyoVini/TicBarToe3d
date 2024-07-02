@@ -16,27 +16,15 @@ namespace TicBarToe3d
                     PaintSquare(objhitted, newcolor);
                     Board.Instance.AddtoBoard(objhitted.name);
                 }
-                else
-                {
-                    Board.Instance.CheckHit();
-                }
             }
+            Board.Instance.CheckHit();
         }
         
         private bool IsProjectableHitBoard(GameObject projectable)
         {
-            GameObject _parent = projectable.transform.parent.gameObject;
-            if (_parent != null)
+            if (projectable.transform.parent.gameObject == gameObject)
             {
-                if (_parent == gameObject)
-                {
-                    return true;
-
-                }
-                else
-                {
-                    return false;
-                }
+                return true;
             }
             else
             {
@@ -47,6 +35,7 @@ namespace TicBarToe3d
         {
             obj.transform.GetComponent<MeshRenderer>().material.color = newcolor;
         }
+
     }
 }
     

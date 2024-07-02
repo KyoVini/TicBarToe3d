@@ -29,7 +29,7 @@ namespace TicBarToe3d
             cam = gameObject.transform.Find("PlayerView").GetComponent<Camera>().transform;
             camthrow = gameObject.transform.Find("PlayerView").GetComponent<CamThrow>();
             attackPoint = gameObject.transform.Find("ThrowPoint").transform;
-            objecttoThrow = Resources.Load<GameObject>("Prefabs/Dart");// get later
+            objecttoThrow = Resources.Load<GameObject>("Prefabs/Dart");
             
             totalThrows = 100;
             throwForce = 50;

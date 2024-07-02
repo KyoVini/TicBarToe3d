@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace TicBarToe3d
@@ -38,11 +39,25 @@ namespace TicBarToe3d
                     squareshitted[i] = square;
                 }
             }
-            CheckHit();
         }
         public void CheckHit()
         {
-            GameDartManager.Instance.HittedBoard(squareshitted);
+            StartCoroutine(Checking());
+        }
+        private IEnumerator Checking()
+        {
+            Debug.Log("CheckHIt");
+            bool ended = IsGameEnd.Check(squareshitted);
+            if (!ended)
+            {
+                yield return new WaitForSeconds(1.0f);
+                GameDartManager.Instance.EndRound(); 
+            }
+            else
+            {
+                yield return new WaitForSeconds(1.0f);
+                GameDartManager.Instance.EndGame();
+            }
         }
         public bool SquareIsOcuppied(string namesquare)
         {
@@ -55,6 +70,7 @@ namespace TicBarToe3d
                     }
             }
             return false;
+
         }
 
         public void OnRestarGame()
@@ -67,7 +83,7 @@ namespace TicBarToe3d
             {
                 FillBoard.Instance.PaintSquare(transform.GetChild(i).gameObject, resetcolor);
             }
-            Dao.currentplayer = "";
+            Dao.currentplayer = PlayerManager.Instance.GetNamePlayer(1);
         }
     }
 }

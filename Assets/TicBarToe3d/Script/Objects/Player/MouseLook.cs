@@ -12,11 +12,11 @@ namespace TicBarToe3d
         private Transform playerbody;
         private float xRotation;
 
-        public bool startlooking;
+        private bool startlooking;
         
         void Start()
         {
-            playerbody = transform.parent.gameObject.transform;
+            playerbody = transform.parent.gameObject.transform;//player manager obj
             startlooking = false;
         }
 

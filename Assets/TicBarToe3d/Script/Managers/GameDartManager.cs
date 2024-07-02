@@ -18,7 +18,7 @@ namespace TicBarToe3d
         private void IntroGame()
         {
             Invoke(nameof(RoundIntro), 0.1f);
-            //cam fly around the scene and get the player vision
+            //cam will fly around the scene and end in the player vision position
         }
         public void RoundIntro()
         {
@@ -29,23 +29,10 @@ namespace TicBarToe3d
         {
             gamestats.NotifyRoundPlay();
         }
-        public void HittedBoard(Board.Square[] hittedsqures)
-        {
-            bool endgame = WinCondition.Condition(hittedsqures, Dao.currentplayer);
-            bool draw = DrawCondition.Condition(hittedsqures);
-            if (!endgame && !draw)
-            {
-                Invoke(nameof(EndRound), 1.0f);
-            }
-            else
-            {
-                Invoke(nameof(EndGame), 1.0f);
-            }
-        }
+        
         public void EndRound()
         {
             gamestats.NotifyEndRound();
-
             RoundIntro();
         }
         public void EndGame()
