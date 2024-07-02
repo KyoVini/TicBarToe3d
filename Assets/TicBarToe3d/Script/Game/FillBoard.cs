@@ -9,7 +9,7 @@ namespace TicBarToe3d
         {
             if (IsProjectableHitBoard(objhitted))
             {
-                string _currentPlayer = GameDartManager.Instance.currentplayer;
+                string _currentPlayer = Dao.currentplayer;
                 if (!Board.Instance.SquareIsOcuppied(objhitted.name))
                 {
                     Color32 newcolor = PlayerManager.Instance.GetCurrentPlayer(_currentPlayer).color;

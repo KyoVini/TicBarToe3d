@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TicBarToe3d
 {
-    public class Board : Singleton<Board>
+    public class Board : Singleton<Board> , IGameRestart
     {
         private string[] boardname;
         public class Square
@@ -23,10 +23,11 @@ namespace TicBarToe3d
                 boardname[i]=transform.GetChild(i).transform.name;
             }
             squareshitted = new Square[totalindex];
+            GameDartManager.Instance.GetGameRestart().Attach(this);
         }
         public void AddtoBoard(string _name)
         {
-            string player = GameDartManager.Instance.currentplayer;
+            string player = Dao.currentplayer;
             for (int i = 0; i< boardname.Length; i++)
             {
                 if(boardname[i] == _name)
@@ -55,16 +56,18 @@ namespace TicBarToe3d
             }
             return false;
         }
-        public void RestartBoard()
+
+        public void OnRestarGame()
         {
-            Array.Clear(squareshitted,0, squareshitted.Length);
+            Array.Clear(squareshitted, 0, squareshitted.Length);
             int totalindex = transform.childCount;
             squareshitted = new Square[totalindex];
             Color32 resetcolor = new Color32(255, 255, 255, 255);
-            for(int i=0; i< totalindex; i++)
+            for (int i = 0; i < totalindex; i++)
             {
-                FillBoard.Instance.PaintSquare(transform.GetChild(i).gameObject,resetcolor);
+                FillBoard.Instance.PaintSquare(transform.GetChild(i).gameObject, resetcolor);
             }
+            Dao.currentplayer = "";
         }
     }
 }

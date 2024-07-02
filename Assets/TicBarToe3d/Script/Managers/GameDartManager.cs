@@ -1,43 +1,37 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TicBarToe3d
 {
     public class GameDartManager : Singleton<GameDartManager>
     {
-        public string currentplayer;
+        private GameFlowNotify gamestats = new GameFlowNotify();
+        private GameCleanNotify gameclean = new GameCleanNotify();
+        private GameRestartNotify gamerestart = new GameRestartNotify();
         public void Start()
         {
             IntroGame();
         }
+        public GameFlowNotify GetGameStats(){ return gamestats;}
+        public GameCleanNotify GetGameClean() { return gameclean; }
+        public GameRestartNotify GetGameRestart() { return gamerestart; }
         private void IntroGame()
         {
             Invoke(nameof(RoundIntro), 0.1f);
             //cam fly around the scene and get the player vision
         }
-        private void RoundIntro()
+        public void RoundIntro()
         {
-            Debug.Log(currentplayer);
-            if(currentplayer == null || currentplayer=="")
-            {
-                currentplayer = PlayerManager.Instance.GetNamePlayer(1);
-            }
-            PlayerManager.Instance.WaittoPlay();
-            UIGameDartManager.Instance.WaittoPlay();
+            gamestats.NotifyRoundIntro();
             Invoke(nameof(RoundPlay), 1.0f);
         }
-        private void RoundPlay()
+        public void RoundPlay()
         {
-            PlayerManager.Instance.ReadytoPlay();
-            UIGameDartManager.Instance.ReadtoPlay();
-            PlayerManager.Instance.Looking(true);
-        }
-        public void Shoot()
-        {
-            UIGameDartManager.Instance.Shoot();
+            gamestats.NotifyRoundPlay();
         }
         public void HittedBoard(Board.Square[] hittedsqures)
         {
-            bool endgame = WinCondition.Condition(hittedsqures, currentplayer);
+            bool endgame = WinCondition.Condition(hittedsqures, Dao.currentplayer);
             bool draw = DrawCondition.Condition(hittedsqures);
             if (!endgame && !draw)
             {
@@ -50,38 +44,18 @@ namespace TicBarToe3d
         }
         public void EndRound()
         {
-            PlayerManager.Instance.ResetCam();
-            
-            if (currentplayer == PlayerManager.Instance.GetNamePlayer(1))
-            {
-                currentplayer = PlayerManager.Instance.GetNamePlayer(2);
-            }
-            else
-            {
-                currentplayer = PlayerManager.Instance.GetNamePlayer(1);
-            }
+            gamestats.NotifyEndRound();
 
             RoundIntro();
         }
-        private void EndGame()
+        public void EndGame()
         {
-            PlayerManager.Instance.ResetCam();
-            //Delete all projectables
-            Transform projectablesclones = transform.Find("ProjectablesClones");
-            int totalindex = projectablesclones.childCount;
-            for (int i = 0; i < totalindex; i++)
-            {
-                foreach (Transform child in projectablesclones)
-                {
-                    Destroy(child.gameObject);
-                }
-            }
-            UIGameDartManager.Instance.EndGame();
+            gamestats.NotifyEndGame();
+            gameclean.NotifyClean();
         }
         public void RestartGame()
         {
-            Board.Instance.RestartBoard();
-            currentplayer = "";
+            gamerestart.NotifyGameRestart();
             RoundIntro();
         }
     }

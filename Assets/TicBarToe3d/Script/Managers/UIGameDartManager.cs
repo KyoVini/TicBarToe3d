@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace TicBarToe3d
 {
-    public class UIGameDartManager : Singleton<UIGameDartManager>
+    public class UIGameDartManager : Singleton<UIGameDartManager>, IGameFlow
     {
         private GameObject aim;
         private GameObject hand;
@@ -13,14 +13,23 @@ namespace TicBarToe3d
         private Button restartbutton;
         void Start()
         {
-            aim = transform.Find("Hand").gameObject;
-            hand = transform.Find("Aim").gameObject;
+            aim = transform.Find("Aim").gameObject;
+            hand = transform.Find("Hand").gameObject;
             messageround = transform.Find("Alert").gameObject;
             restartbutton = transform.Find("Restart_btn").gameObject.GetComponent<Button>();
             restartbutton.onClick.AddListener(RestartAction);
             playerscore = transform.Find("PlayerScore").gameObject.GetComponent<PlayerScore>();
-            
             HideUI();
+
+        }
+        private void OnEnable()
+        {
+            Debug.Log("Start UIGameDartManager");
+            GameDartManager.Instance.GetGameStats().Attach(this);
+        }
+        private void OnDestroy()
+        {
+            GameDartManager.Instance.GetGameStats().Detach(this);
         }
         private void HideUI()
         {
@@ -30,7 +39,18 @@ namespace TicBarToe3d
             restartbutton.transform.gameObject.SetActive(false);
             playerscore.ChangeStats("hide");
         }
-        public void WaittoPlay()
+        
+        public void Shoot()
+        {
+            hand.SetActive(false);
+            aim.SetActive(false);
+        }
+        void RestartAction()
+        {
+            GameDartManager.Instance.RestartGame();
+        }
+
+        public void OnRoundIntro()
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -38,30 +58,31 @@ namespace TicBarToe3d
             hand.SetActive(false);
             messageround.SetActive(true);
             restartbutton.transform.gameObject.SetActive(false);
-            messageround.GetComponent<TextMeshProUGUI>().text = GameDartManager.Instance.currentplayer;
-            playerscore.ChangeStats(GameDartManager.Instance.currentplayer);
+            messageround.GetComponent<TextMeshProUGUI>().text = Dao.currentplayer;
+            playerscore.ChangeStats(Dao.currentplayer);
+            playerscore.ChangeStats("show");
         }
-        public void ReadtoPlay()
+
+        public void OnRoundPlay()
         {
             aim.SetActive(true);
             hand.SetActive(true);
             messageround.SetActive(false);
         }
-        public void Shoot()
+
+        public void OnEndRound()
         {
-            hand.SetActive(false);
-            aim.SetActive(false);
+            
         }
-        public void EndGame() {
+
+        public void OnEndGame()
+        {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             messageround.SetActive(true);
             restartbutton.transform.gameObject.SetActive(true);
-            messageround.GetComponent<TextMeshProUGUI>().text = GameDartManager.Instance.currentplayer +"<br>Win" ;
-        }
-        void RestartAction()
-        {
-            GameDartManager.Instance.RestartGame();
+            playerscore.ChangeStats("hide");
+            messageround.GetComponent<TextMeshProUGUI>().text = Dao.currentplayer + "<br>Win";
         }
     }
 }
