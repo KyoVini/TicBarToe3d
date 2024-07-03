@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace TicBarToe3d {
-    public class PlayerManager : Singleton <PlayerManager>, IGameFlow
+    public class PlayerManager : Singleton <PlayerManager>, IGameFlow,IGameShoot
     {
         private PlayerSO player1;
         private PlayerSO player2;
@@ -9,20 +9,21 @@ namespace TicBarToe3d {
         public void Start()
         {
             playerview = transform.Find("PlayerView").transform.GetComponent<PlayerView>();
+            playerview.Init(this.transform);
             player1 = Resources.Load<PlayerSO>("Configs/Player1");
             player2 = Resources.Load<PlayerSO>("Configs/Player2");
             Dao.currentplayer = GetNamePlayer(1);
             GameDartManager.Instance.GetGameStats().Attach(this);
+            GameDartManager.Instance.GetShoot().Attach(this);
         }
-        
         private void OnDestroy()
         {
             GameDartManager.Instance.GetGameStats().Detach(this);
+            GameDartManager.Instance.GetShoot().Detach(this);
         }
-        public Transform GetTransfrom()
-        {
-            return this.transform;
-        }
+
+        public Transform GetTransfrom() => this.transform;
+        
         public PlayerSO GetCurrentPlayer(string _name)
         {
             if (_name == player1.name)
@@ -57,6 +58,10 @@ namespace TicBarToe3d {
             gameObject.transform.GetComponent<ThrowObject>().ResetThrow();
             playerview.OnRoundPlay();
         }
+        public void OnShoot()
+        {
+            playerview.OnShoot();
+        }
 
         public void OnEndRound()
         {
@@ -75,6 +80,8 @@ namespace TicBarToe3d {
         {
             playerview.OnEndGame();
         }
+
+        
     }
 }
 

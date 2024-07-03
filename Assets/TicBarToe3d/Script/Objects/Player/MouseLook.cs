@@ -13,11 +13,14 @@ namespace TicBarToe3d
         private float xRotation;
 
         private bool startlooking;
-        
+        private Quaternion initialcamrotation;
+        private Quaternion initialplayerrotation;
         void Start()
         {
             playerbody = transform.parent.gameObject.transform;//player manager obj
             startlooking = false;
+            initialcamrotation = transform.localRotation;
+            initialplayerrotation = playerbody.rotation;
         }
 
         // Update is called once per frame
@@ -40,6 +43,12 @@ namespace TicBarToe3d
         public void Looking(bool _looking)
         {
             startlooking = _looking;
+        }
+        public void SetLookCenter()
+        {
+            xRotation = 0;
+            transform.localRotation = initialcamrotation;
+            playerbody.rotation = initialplayerrotation;
         }
     }
 }

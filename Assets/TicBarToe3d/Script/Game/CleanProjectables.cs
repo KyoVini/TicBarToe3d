@@ -9,6 +9,10 @@ namespace TicBarToe3d
             projectablesclones = transform;
             GameDartManager.Instance.GetGameClean().Attach(this);
         }
+        private void OnDestroy()
+        {
+            GameDartManager.Instance.GetGameClean().Detach(this);
+        }
         public void OnCleanGame()
         {
             if (projectablesclones != null)

@@ -7,12 +7,17 @@ namespace TicBarToe3d
     public class CamThrow : MonoBehaviour
     {
         private Vector3 resetposition;
-       
-        public void ChangeCam(GameObject _projetil)
+        private Vector3 resetrotation;
+
+        public void Start()
         {
             resetposition = transform.position;
+            resetrotation = transform.eulerAngles;
+        }
+        public void ChangeCam(GameObject _projetil)
+        {
             transform.SetParent(_projetil.transform);
-            transform.GetComponent<MouseLook>().Looking(false);
+            //transform.GetComponent<MouseLook>().Looking(false);
             Transform newposition = _projetil.transform.Find("CamPositon").transform;
             transform.position = newposition.position;
         }
@@ -20,11 +25,7 @@ namespace TicBarToe3d
         {
             transform.SetParent(_player);
             transform.position = resetposition;
-        }
-
-        public void Looking(bool _looking)
-        {
-            transform.GetComponent<MouseLook>().Looking(_looking);
+            transform.transform.eulerAngles = resetrotation;
         }
     }
 }

@@ -1,35 +1,30 @@
 using UnityEngine;
 namespace TicBarToe3d
 {
-    public class PlayerView : MonoBehaviour , IGameFlow
+    public class PlayerView : MonoBehaviour , IGameFlow, IGameShoot
     {
         private CamThrow camthrow;
         private MouseLook mouselook;
-        
+        private Transform player;
         void Start()
         {
             camthrow = GetComponent<CamThrow>();
             mouselook = GetComponent<MouseLook>();
-            //posso fazer isso aqui mas vai ter um listener a mais
-            //e gera uma "dependencia" adicional do gamedartmanager
-            //GameDartManager.Instance.GetGameStats().Attach(this);
+            //I dont put the observer here because I dont wanted create 1 more listener and the playermanager is responsable for this one
         }
-        //se n deixar com observar tbm n preciso remover no fim
-        /*private void OnDestroy()
+        public void Init(Transform _player)
         {
-            GameDartManager.Instance.GetGameStats().Detach(this);
-        }*/
-        private void CamLooking(bool _looking)
-        {
-            camthrow.Looking(_looking);
+            player = _player;
         }
         private void ResetCamtoPlayer()
         {
-            camthrow.SetCamPosition(PlayerManager.Instance.GetTransfrom());
+            camthrow.SetCamPosition(player);
+            mouselook.SetLookCenter();
         }
         private void PlayerLook(bool _looking)
         {
             mouselook.Looking(_looking);
+
         }
         public void OnRoundIntro()
         {
@@ -38,10 +33,13 @@ namespace TicBarToe3d
 
         public void OnRoundPlay()
         {
-            CamLooking(true);
             PlayerLook(true);
         }
+        public void OnShoot()
+        {
+            PlayerLook(false);
 
+        }
         public void OnEndRound()
         {
             ResetCamtoPlayer();

@@ -8,13 +8,15 @@ namespace TicBarToe3d
         private GameFlowNotify gamestats = new GameFlowNotify();
         private GameCleanNotify gameclean = new GameCleanNotify();
         private GameRestartNotify gamerestart = new GameRestartNotify();
+        private GameShootNotify gameshoot = new GameShootNotify();
         public void Start()
         {
             IntroGame();
         }
-        public GameFlowNotify GetGameStats(){ return gamestats;}
-        public GameCleanNotify GetGameClean() { return gameclean; }
-        public GameRestartNotify GetGameRestart() { return gamerestart; }
+        public GameFlowNotify GetGameStats() => gamestats;
+        public GameCleanNotify GetGameClean() =>  gameclean; 
+        public GameRestartNotify GetGameRestart() => gamerestart;
+        public GameShootNotify GetShoot() => gameshoot;
         public void IntroGame()
         {
             Invoke(nameof(RoundIntro), 0.1f);
@@ -29,7 +31,10 @@ namespace TicBarToe3d
         {
             gamestats.NotifyRoundPlay();
         }
-        
+        public void Shoot()
+        {
+            gameshoot.NotifyGameShoot();
+        }
         public void EndRound()
         {
             gamestats.NotifyEndRound();

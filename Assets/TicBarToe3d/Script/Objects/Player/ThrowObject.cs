@@ -12,7 +12,6 @@ namespace TicBarToe3d
         private GameObject objecttoThrow;
 
         
-        private int totalThrows;
 
         [Header("Throwing")]
         [SerializeField]
@@ -31,14 +30,13 @@ namespace TicBarToe3d
             attackPoint = gameObject.transform.Find("ThrowPoint").transform;
             objecttoThrow = Resources.Load<GameObject>("Prefabs/Dart");
             
-            totalThrows = 100;
-            throwForce = 50;
+            throwForce = 60;
             throwUpwardForce = 0;
         }
 
         void Update()
         {
-            if (Input.GetKeyDown(throwKey) && readytoThow && totalThrows > 0)
+            if (Input.GetKeyDown(throwKey) && readytoThow)
             {
                 Throw();
             }
@@ -59,9 +57,8 @@ namespace TicBarToe3d
 
             projectileRb.AddForce(forcetoAdd, ForceMode.Impulse);
 
-            totalThrows--;
             camthrow.ChangeCam(projectile);
-            UIGameDartManager.Instance.Shoot();
+            GameDartManager.Instance.Shoot();
         }
         public void ResetThrow()
         {

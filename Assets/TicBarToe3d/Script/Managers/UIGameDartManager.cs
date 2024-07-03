@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace TicBarToe3d
 {
-    public class UIGameDartManager : Singleton<UIGameDartManager>, IGameFlow
+    public class UIGameDartManager : Singleton<UIGameDartManager>, IGameFlow,IGameShoot
     {
         private GameObject aim;
         private GameObject hand;
@@ -20,16 +20,16 @@ namespace TicBarToe3d
             restartbutton.onClick.AddListener(RestartAction);
             playerscore = transform.Find("PlayerScore").gameObject.GetComponent<PlayerScore>();
             HideUI();
-
-        }
-        private void OnEnable()
-        {
             GameDartManager.Instance.GetGameStats().Attach(this);
+            GameDartManager.Instance.GetShoot().Attach(this);
+
         }
         private void OnDestroy()
         {
             GameDartManager.Instance.GetGameStats().Detach(this);
+            GameDartManager.Instance.GetShoot().Detach(this);
         }
+        
         private void HideUI()
         {
             aim.SetActive(false);
@@ -39,13 +39,10 @@ namespace TicBarToe3d
             playerscore.ChangeStats("hide");
         }
         
-        public void Shoot()
-        {
-            hand.SetActive(false);
-            aim.SetActive(false);
-        }
+        
         void RestartAction()
         {
+            //could became a event call
             GameDartManager.Instance.RestartGame();
         }
 
@@ -68,10 +65,15 @@ namespace TicBarToe3d
             hand.SetActive(true);
             messageround.SetActive(false);
         }
-
+        public void OnShoot()
+        {
+            hand.SetActive(false);
+            aim.SetActive(false);
+            
+        }
         public void OnEndRound()
         {
-            
+            //wait to implement
         }
 
         public void OnEndGame()
@@ -83,6 +85,7 @@ namespace TicBarToe3d
             playerscore.ChangeStats("hide");
             messageround.GetComponent<TextMeshProUGUI>().text = Dao.currentplayer + "<br>Win";
         }
+
     }
 }
 
