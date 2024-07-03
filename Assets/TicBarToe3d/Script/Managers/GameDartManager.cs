@@ -15,7 +15,7 @@ namespace TicBarToe3d
         public GameFlowNotify GetGameStats(){ return gamestats;}
         public GameCleanNotify GetGameClean() { return gameclean; }
         public GameRestartNotify GetGameRestart() { return gamerestart; }
-        private void IntroGame()
+        public void IntroGame()
         {
             Invoke(nameof(RoundIntro), 0.1f);
             //cam will fly around the scene and end in the player vision position
@@ -35,6 +35,7 @@ namespace TicBarToe3d
             gamestats.NotifyEndRound();
             RoundIntro();
         }
+
         public void EndGame()
         {
             gamestats.NotifyEndGame();

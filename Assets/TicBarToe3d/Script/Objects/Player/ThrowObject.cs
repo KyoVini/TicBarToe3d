@@ -36,7 +36,6 @@ namespace TicBarToe3d
             throwUpwardForce = 0;
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (Input.GetKeyDown(throwKey) && readytoThow && totalThrows > 0)

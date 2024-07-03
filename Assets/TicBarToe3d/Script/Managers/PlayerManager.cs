@@ -3,34 +3,25 @@ using UnityEngine;
 namespace TicBarToe3d {
     public class PlayerManager : Singleton <PlayerManager>, IGameFlow
     {
-        private GameObject playerview;
         private PlayerSO player1;
         private PlayerSO player2;
-        
+        private PlayerView playerview;
         public void Start()
         {
-            playerview = transform.Find("PlayerView").gameObject;
+            playerview = transform.Find("PlayerView").transform.GetComponent<PlayerView>();
             player1 = Resources.Load<PlayerSO>("Configs/Player1");
             player2 = Resources.Load<PlayerSO>("Configs/Player2");
             Dao.currentplayer = GetNamePlayer(1);
-        }
-        private void OnEnable()
-        {
-            Debug.Log("Start PlAyer Manaeger");
             GameDartManager.Instance.GetGameStats().Attach(this);
         }
+        
         private void OnDestroy()
         {
             GameDartManager.Instance.GetGameStats().Detach(this);
         }
-        public void PlayerLook(bool _look)
+        public Transform GetTransfrom()
         {
-            playerview.GetComponent<MouseLook>().Looking(_look);
-        }
-        public void CamLooking(bool _looking)
-        {
-            CamThrow camthrow = playerview.GetComponent<CamThrow>(); ;
-            camthrow.Looking(_looking);
+            return this.transform;
         }
         public PlayerSO GetCurrentPlayer(string _name)
         {
@@ -55,29 +46,21 @@ namespace TicBarToe3d {
             }
         }
         
-        public void ResetCam()
-        {
-            CamThrow camthrow = playerview.GetComponent<CamThrow>(); ;
-            camthrow.CamCameBack();
-            camthrow.ResetPosition();
-        }
         
         public void OnRoundIntro()
         {
-            PlayerLook(false);
+            playerview.OnRoundIntro();
         }
 
         public void OnRoundPlay()
         {
-            PlayerLook(true);
             gameObject.transform.GetComponent<ThrowObject>().ResetThrow();
-            CamLooking(true);
+            playerview.OnRoundPlay();
         }
 
         public void OnEndRound()
         {
-            ResetCam();
-
+            playerview.OnEndRound();
             if (Dao.currentplayer == GetNamePlayer(1))
             {
                 Dao.currentplayer = GetNamePlayer(2);
@@ -90,7 +73,7 @@ namespace TicBarToe3d {
 
         public void OnEndGame()
         {
-            ResetCam();
+            playerview.OnEndGame();
         }
     }
 }
