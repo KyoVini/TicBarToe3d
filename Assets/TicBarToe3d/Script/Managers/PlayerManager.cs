@@ -1,11 +1,12 @@
 using UnityEngine;
 
 namespace TicBarToe3d {
-    public class PlayerManager : Singleton <PlayerManager>, IGameFlow,IGameShoot
+    public class PlayerManager : Singleton <PlayerManager>, INotifier
     {
         private PlayerSO player1;
         private PlayerSO player2;
         private PlayerView playerview;
+
         public void Start()
         {
             playerview = transform.Find("PlayerView").transform.GetComponent<PlayerView>();

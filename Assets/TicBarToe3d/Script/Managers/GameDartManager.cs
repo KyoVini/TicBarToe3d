@@ -5,50 +5,56 @@ namespace TicBarToe3d
 {
     public class GameDartManager : Singleton<GameDartManager>
     {
-        private GameFlowNotify gamestats = new GameFlowNotify();
-        private GameCleanNotify gameclean = new GameCleanNotify();
-        private GameRestartNotify gamerestart = new GameRestartNotify();
-        private GameShootNotify gameshoot = new GameShootNotify();
-        public void Start()
-        {
-            IntroGame();
-        }
-        public GameFlowNotify GetGameStats() => gamestats;
-        public GameCleanNotify GetGameClean() =>  gameclean; 
-        public GameRestartNotify GetGameRestart() => gamerestart;
-        public GameShootNotify GetShoot() => gameshoot;
+        private Notifier gameintro = new Notifier();
+        private Notifier roundintro = new Notifier();
+        private Notifier roundplay = new Notifier();
+        private Notifier gameshoot = new Notifier();
+        private Notifier roundend = new Notifier();
+        private Notifier gameend = new Notifier();
+        private Notifier gameclean = new Notifier();
+        private Notifier gamerestart = new Notifier();
+        public void Start() { Invoke(nameof(RoundIntro), 0.1f); }
+        public Notifier GetGameIntro() => gameintro;
+        public Notifier GetRoundIntro() => roundintro;
+        public Notifier GetRoundPlay() => roundplay;
+        public Notifier GetGameShoot() => gameshoot;
+        public Notifier GetRoundEnd() => roundend;
+        public Notifier GetGameEnd() => gameend;
+        public Notifier GetGameClean() =>  gameclean; 
+        public Notifier GetGameRestart() => gamerestart;
+        
         public void IntroGame()
         {
-            Invoke(nameof(RoundIntro), 0.1f);
+            RoundIntro();
             //cam will fly around the scene and end in the player vision position
         }
         public void RoundIntro()
         {
-            gamestats.NotifyRoundIntro();
+            roundintro.Notify();
             Invoke(nameof(RoundPlay), 1.0f);
         }
         public void RoundPlay()
         {
-            gamestats.NotifyRoundPlay();
+            roundplay.Notify();
         }
         public void Shoot()
         {
-            gameshoot.NotifyGameShoot();
+            gameshoot.Notify();
         }
         public void EndRound()
         {
-            gamestats.NotifyEndRound();
+            roundend.Notify();
             RoundIntro();
         }
 
         public void EndGame()
         {
-            gamestats.NotifyEndGame();
-            gameclean.NotifyClean();
+            gameend.Notify();
+            gameclean.Notify();
         }
         public void RestartGame()
         {
-            gamerestart.NotifyGameRestart();
+            gamerestart.Notify();
             RoundIntro();
         }
     }

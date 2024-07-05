@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace TicBarToe3d
 {
-    public class UIGameDartManager : Singleton<UIGameDartManager>, IGameFlow,IGameShoot
+    public class UIGameDartManager : Singleton<UIGameDartManager>, INotifier
     {
         private GameObject aim;
         private GameObject hand;
@@ -65,7 +65,7 @@ namespace TicBarToe3d
             hand.SetActive(true);
             messageround.SetActive(false);
         }
-        public void OnShoot()
+        public void OnNotify()
         {
             hand.SetActive(false);
             aim.SetActive(false);

@@ -1,7 +1,7 @@
 using UnityEngine;
 namespace TicBarToe3d
 {
-    public class CleanProjectables : MonoBehaviour, IGameClean
+    public class CleanProjectables : MonoBehaviour, INotifier
     {
         Transform projectablesclones;
         void Start()
@@ -13,7 +13,7 @@ namespace TicBarToe3d
         {
             GameDartManager.Instance.GetGameClean().Detach(this);
         }
-        public void OnCleanGame()
+        public void OnNotify()
         {
             if (projectablesclones != null)
             {
