@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using UnityEngine;
+
 namespace TicBarToe3d
 {
     public class Notifier : IListener
@@ -7,6 +9,10 @@ namespace TicBarToe3d
 
         public void Attach(INotifier _listener)
         {
+            if(mylistener == null)
+            {
+                mylistener = new List<INotifier>();
+            }
             mylistener.Add(_listener);
         }
         public void Detach(INotifier _listener)
@@ -18,7 +24,7 @@ namespace TicBarToe3d
         {
             foreach (var _gamerestart in mylistener)
             {
-                _gamerestart.OnNotify();
+                _gamerestart?.OnNotify();
             }
         }
 

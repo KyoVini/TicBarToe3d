@@ -1,19 +1,15 @@
 using UnityEngine;
 namespace TicBarToe3d
 {
-    public class CleanProjectables : MonoBehaviour, INotifier
+    public class CleanProjectables : Singleton<CleanProjectables>
     {
         Transform projectablesclones;
         void Start()
         {
+            Debug.Log("CleanProjectables");
             projectablesclones = transform;
-            GameDartManager.Instance.GetGameClean().Attach(this);
         }
-        private void OnDestroy()
-        {
-            GameDartManager.Instance.GetGameClean().Detach(this);
-        }
-        public void OnNotify()
+        public void Destroy()
         {
             if (projectablesclones != null)
             {

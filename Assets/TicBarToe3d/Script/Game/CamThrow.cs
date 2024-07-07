@@ -17,7 +17,6 @@ namespace TicBarToe3d
         public void ChangeCam(GameObject _projetil)
         {
             transform.SetParent(_projetil.transform);
-            //transform.GetComponent<MouseLook>().Looking(false);
             Transform newposition = _projetil.transform.Find("CamPositon").transform;
             transform.position = newposition.position;
         }

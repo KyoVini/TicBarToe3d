@@ -1,10 +1,10 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TicBarToe3d
 {
     public class GameDartManager : Singleton<GameDartManager>
     {
+        private StateFactory statefactory;
         private Notifier gameintro = new Notifier();
         private Notifier roundintro = new Notifier();
         private Notifier roundplay = new Notifier();
@@ -13,7 +13,13 @@ namespace TicBarToe3d
         private Notifier gameend = new Notifier();
         private Notifier gameclean = new Notifier();
         private Notifier gamerestart = new Notifier();
-        public void Start() { Invoke(nameof(RoundIntro), 0.1f); }
+        
+        
+        public void Start() {
+            Debug.Log(gameintro);
+            statefactory = new StateFactory();
+            Invoke(nameof(RoundIntro), 0.1f); 
+        }
         public Notifier GetGameIntro() => gameintro;
         public Notifier GetRoundIntro() => roundintro;
         public Notifier GetRoundPlay() => roundplay;

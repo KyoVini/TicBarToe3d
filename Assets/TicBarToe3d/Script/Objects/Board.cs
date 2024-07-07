@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace TicBarToe3d
 {
-    public class Board : Singleton<Board> , INotifier
+    public class Board : Singleton<Board> , IBoard
     {
         private string[] boardname;
         public class Square
@@ -24,7 +24,6 @@ namespace TicBarToe3d
                 boardname[i]=transform.GetChild(i).transform.name;
             }
             squareshitted = new Square[totalindex];
-            GameDartManager.Instance.GetGameRestart().Attach(this);
         }
         public void AddtoBoard(string _name)
         {
@@ -73,7 +72,7 @@ namespace TicBarToe3d
 
         }
 
-        public void OnNotify()
+        public void RestartBoard()
         {
             Array.Clear(squareshitted, 0, squareshitted.Length);
             int totalindex = transform.childCount;

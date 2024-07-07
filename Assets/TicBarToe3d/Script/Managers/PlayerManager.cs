@@ -1,30 +1,40 @@
 using UnityEngine;
 
 namespace TicBarToe3d {
-    public class PlayerManager : Singleton <PlayerManager>, INotifier
+    public class PlayerManager : Singleton <PlayerManager>
     {
         private PlayerSO player1;
         private PlayerSO player2;
-        private PlayerView playerview;
 
+        private MouseLook mouselook;
+        private CamThrow camthrow;
+        private ThrowObject throwobject;
+        
+        
+        
+        private Transform player;
         public void Start()
         {
-            playerview = transform.Find("PlayerView").transform.GetComponent<PlayerView>();
-            playerview.Init(this.transform);
+            player = gameObject.transform;
+
+            mouselook = transform.Find("PlayerView").transform.GetComponent<MouseLook>();
+            camthrow = transform.Find("PlayerView").transform.GetComponent<CamThrow>();
+            throwobject = gameObject.transform.GetComponent<ThrowObject>();
+
             player1 = Resources.Load<PlayerSO>("Configs/Player1");
             player2 = Resources.Load<PlayerSO>("Configs/Player2");
+
+            //Could have directly in attached in the game object
+            
+
             Dao.currentplayer = GetNamePlayer(1);
-            GameDartManager.Instance.GetGameStats().Attach(this);
-            GameDartManager.Instance.GetShoot().Attach(this);
-        }
-        private void OnDestroy()
-        {
-            GameDartManager.Instance.GetGameStats().Detach(this);
-            GameDartManager.Instance.GetShoot().Detach(this);
         }
 
-        public Transform GetTransfrom() => this.transform;
-        
+        public MouseLook GetMouseLook() => mouselook;
+        public CamThrow GetCamThrow() => camthrow;
+        public Transform GetPlayer() => player;
+        public ThrowObject GetThrowObject() => throwobject;
+
         public PlayerSO GetCurrentPlayer(string _name)
         {
             if (_name == player1.name)
@@ -47,26 +57,8 @@ namespace TicBarToe3d {
                 return player2.name;
             }
         }
-        
-        
-        public void OnRoundIntro()
+        public void ChangePlayer()
         {
-            playerview.OnRoundIntro();
-        }
-
-        public void OnRoundPlay()
-        {
-            gameObject.transform.GetComponent<ThrowObject>().ResetThrow();
-            playerview.OnRoundPlay();
-        }
-        public void OnShoot()
-        {
-            playerview.OnShoot();
-        }
-
-        public void OnEndRound()
-        {
-            playerview.OnEndRound();
             if (Dao.currentplayer == GetNamePlayer(1))
             {
                 Dao.currentplayer = GetNamePlayer(2);
@@ -76,13 +68,6 @@ namespace TicBarToe3d {
                 Dao.currentplayer = GetNamePlayer(1);
             }
         }
-
-        public void OnEndGame()
-        {
-            playerview.OnEndGame();
-        }
-
-        
     }
 }
 
