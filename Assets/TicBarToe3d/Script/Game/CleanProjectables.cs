@@ -1,7 +1,7 @@
 using UnityEngine;
 namespace TicBarToe3d
 {
-    public class CleanProjectables : Singleton<CleanProjectables>
+    public class CleanProjectables : Singleton<CleanProjectables>, ICleanProjectables
     {
         Transform projectablesclones;
         void Start()
@@ -13,7 +13,7 @@ namespace TicBarToe3d
         {
             if (projectablesclones != null)
             {
-                
+
                 int totalindex = projectablesclones.childCount;
                 for (int i = 0; i < totalindex; i++)
                 {
@@ -22,7 +22,7 @@ namespace TicBarToe3d
                         Destroy(child.gameObject);
                     }
                 }
-            } 
+            }
         }
     }
 }

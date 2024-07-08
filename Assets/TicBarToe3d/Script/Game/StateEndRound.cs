@@ -13,6 +13,7 @@ namespace TicBarToe3d
         }
         public void OnNotify()
         {
+            PlayerManager.Instance.IgnorePlayerRender(false);
             PlayerManager.Instance.GetCamThrow().SetCamPosition(PlayerManager.Instance.GetPlayer());
             PlayerManager.Instance.GetMouseLook().SetLookCenter();
             PlayerManager.Instance.ChangePlayer();

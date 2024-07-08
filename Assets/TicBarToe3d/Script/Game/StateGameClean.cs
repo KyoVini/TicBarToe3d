@@ -5,14 +5,15 @@ namespace TicBarToe3d
         // Start is called before the first frame update
         public StateGameClean()
         {
-            GameDartManager.Instance.GetGameRestart().Attach(this);
+            GameDartManager.Instance.GetGameClean().Attach(this);
         }
         public void OnDestroy()
         {
-            GameDartManager.Instance.GetGameRestart().Detach(this);
+            GameDartManager.Instance.GetGameClean().Detach(this);
         }
         public void OnNotify()
         {
+            CleanProjectables.Instance.Destroy();
             Board.Instance.RestartBoard();
         }
     }

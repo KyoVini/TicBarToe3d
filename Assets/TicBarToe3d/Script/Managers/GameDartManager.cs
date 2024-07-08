@@ -16,7 +16,6 @@ namespace TicBarToe3d
         
         
         public void Start() {
-            Debug.Log(gameintro);
             statefactory = new StateFactory();
             Invoke(nameof(RoundIntro), 0.1f); 
         }

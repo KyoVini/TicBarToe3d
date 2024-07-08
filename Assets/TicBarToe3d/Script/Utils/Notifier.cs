@@ -22,9 +22,9 @@ namespace TicBarToe3d
 
         public void Notify()
         {
-            foreach (var _gamerestart in mylistener)
+            foreach (var _gamestats in mylistener)
             {
-                _gamerestart?.OnNotify();
+                _gamestats?.OnNotify();
             }
         }
 

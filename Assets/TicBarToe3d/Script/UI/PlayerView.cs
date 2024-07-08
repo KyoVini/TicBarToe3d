@@ -18,5 +18,10 @@ namespace TicBarToe3d
             aim.SetActive(_visible);
             hand.SetActive(_visible);
         }
+
+        public void Zoom()
+        {
+
+        }
     }
 }
