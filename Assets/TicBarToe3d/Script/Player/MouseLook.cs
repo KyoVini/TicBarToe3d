@@ -15,7 +15,7 @@ namespace TicBarToe3d
         private Quaternion initialplayerrotation;
         void Start()
         {
-            playerbody = transform.parent.gameObject.transform;//player manager obj
+            playerbody = PlayerManager.Instance.GetPlayer();
             startlooking = false;
             initialcamrotation = transform.localRotation;
             initialplayerrotation = playerbody.rotation;

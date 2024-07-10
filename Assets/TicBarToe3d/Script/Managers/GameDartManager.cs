@@ -13,7 +13,7 @@ namespace TicBarToe3d
         private Notifier gameend = new Notifier();
         private Notifier gameclean = new Notifier();
         private Notifier gamerestart = new Notifier();
-        
+
         
         public void Start() {
             statefactory = new StateFactory();

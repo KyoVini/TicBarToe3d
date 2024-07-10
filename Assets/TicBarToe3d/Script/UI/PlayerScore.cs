@@ -13,8 +13,9 @@ namespace TicBarToe3d
             player1.name = PlayerManager.Instance.GetNamePlayer(1);
             player2 = transform.Find("player2").gameObject;
             player2.name = PlayerManager.Instance.GetNamePlayer(2);
-            
         }
+        // name player1, name player2, hide, show
+        
         public void ChangeStats(string round)
         {
             switch (round)

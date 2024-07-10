@@ -18,6 +18,7 @@ namespace TicBarToe3d
 
             PlayerManager.Instance.GetCamThrow().SetCamPosition(PlayerManager.Instance.GetPlayer());
             PlayerManager.Instance.GetMouseLook().SetLookCenter();
+
             UIGameDartManager.Instance.ShowMessager(true);
             UIGameDartManager.Instance.ShowButton(true);
             UIGameDartManager.Instance.GetPlayerScore().ChangeStats("hide");

@@ -6,8 +6,8 @@ namespace TicBarToe3d
 {
     public class UIGameDartManager : Singleton<UIGameDartManager>
     {
-        private PlayerView playerview;
-        private PlayerScore playerscore;
+        private PlayerView playerview; 
+        private PlayerScore playerscore; 
         private GameObject messageround;
         private Button restartbutton;
         void Start()
@@ -15,7 +15,6 @@ namespace TicBarToe3d
             messageround = transform.Find("Alert").gameObject;
             playerscore = transform.Find("PlayerScore").gameObject.GetComponent<PlayerScore>();
             playerview = transform.Find("PlayerView").gameObject.GetComponent<PlayerView>();
-
             restartbutton = transform.Find("Restart_btn").gameObject.GetComponent<Button>();
             restartbutton.onClick.AddListener(RestartAction);
 

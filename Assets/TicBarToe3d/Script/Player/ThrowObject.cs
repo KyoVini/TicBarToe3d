@@ -27,7 +27,7 @@ namespace TicBarToe3d
             readytoThow = true;
             zoom = false;
             cam = PlayerManager.Instance.GetPlayerCamera().GetCamTransform();
-            camthrow = gameObject.transform.Find("PlayerView").GetComponent<CamThrow>();
+            camthrow = PlayerManager.Instance.GetCamThrow();
             attackPoint = gameObject.transform.Find("ThrowPoint").transform;
             objecttoThrow = Resources.Load<GameObject>("Prefabs/Dart");
             
@@ -37,6 +37,7 @@ namespace TicBarToe3d
 
         void Update()
         {
+            //the interaction change to another classe
             if (Input.GetKeyDown(throwKey) && readytoThow)
             {
                 if (zoom)
@@ -77,7 +78,7 @@ namespace TicBarToe3d
             Vector3 forcetoAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
 
             projectileRb.AddForce(forcetoAdd, ForceMode.Impulse);
-
+            
             camthrow.ChangeCam(projectile);
             GameDartManager.Instance.Shoot();
         }

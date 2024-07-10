@@ -15,6 +15,7 @@ namespace TicBarToe3d
         {
             PlayerManager.Instance.GetMouseLook().Looking(false);
             PlayerManager.Instance.IgnorePlayerRender(true);
+
             UIGameDartManager.Instance.GetPlayerView().Visible(false);
         }
     }
